@@ -30,3 +30,6 @@ class Red1(RedBot):
     def mouse_event(self, mouse_x, mouse_y, button_left, button_middle, button_right):
         if button_left:
             self.rotate_to_coordinate(mouse_x, mouse_y)
+
+    def handle_collision(self, other):
+        RedBot.handle_collision(self, other)

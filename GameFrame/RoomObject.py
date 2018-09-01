@@ -149,6 +149,9 @@ class RoomObject:
         if angle >= 360:
             angle = angle - 360
 
+        if angle < 0:
+            angle = 360 + angle
+
         if angle == 0:
             x = speed
             y = 0
