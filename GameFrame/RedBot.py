@@ -1,11 +1,12 @@
 from GameFrame import Bot, Globals
+import random
 
 
 class RedBot(Bot):
     def __init__(self, room, x, y):
         Bot.__init__(self, room, x, y)
-        red_bot_image = self.load_image('arrow_red.png')
-        self.set_image(red_bot_image, 32, 32)
+        red_bot_image = self.load_image('bot_red.png')
+        self.set_image(red_bot_image, 16, 16)
 
         self.rotate(90)
 
@@ -19,7 +20,6 @@ class RedBot(Bot):
         Bot.step(self)
 
     def handle_collision(self, other):
-        print('In Red Collision')
         other_type = type(other).__name__
         if other_type == 'BlueFlag':
             pass
@@ -29,6 +29,6 @@ class RedBot(Bot):
             if self.rect.centerx < Globals.SCREEN_WIDTH / 2 - self.width / 2:
                 self.curr_rotation = 0
                 self.rotate(90)
-                self.x = 700
-                self.y = 274
+                self.x = self.starting_x
+                self.y = random.randint(50, 550)
 

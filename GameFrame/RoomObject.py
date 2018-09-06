@@ -200,14 +200,21 @@ class RoomObject:
         self.rect.x = self.x
         self.rect.y = self.y
 
-
     def rotate_to_coordinate(self, mouseX, mouseY):
 
-        distanceX = self.x + (self.width / 2) - mouseX
-        distanceY = self.y + (self.height / 2) - mouseY
+        distance_x = self.x + (self.width / 2) - mouseX
+        distance_y = self.y + (self.height / 2) - mouseY
 
-        angle = math.degrees(math.atan2(distanceX, distanceY))
+        angle = math.degrees(math.atan2(distance_x, distance_y))
 
         self.curr_rotation = 0
 
         self.rotate(angle)
+
+    def get_position(self):
+        return self.x, self.y
+
+    def move_in_direction(self, angle, distance):
+        x, y = self.get_direction_coordinates(angle, distance)
+        self.x += x
+        self.y += y

@@ -13,7 +13,7 @@ class Globals:
     LIVES = 3
 
     # - Set the Window display name - #
-    window_name = 'GF Game'
+    window_name = 'GF Capture the Flag'
 
     # - Set the order of the rooms - #
     levels = ["Arena"]
@@ -27,10 +27,15 @@ class Globals:
     # - Change variable to True to exit the program - #
     exiting = False
 
+    # bot lists
+    red_bots = []
+    blue_bots = []
 
-# ############################################################# #
-# ###### User Defined Global Variables below this line ######## #
-# ############################################################# #
+    # Flags
+    red_flag = 0
+    blue_flag = 0
 
-    total_count = 0
-    destroyed_count = 0
+    # Speeds
+    SLOW = 2
+    MEDIUM = 5
+    FAST = 8

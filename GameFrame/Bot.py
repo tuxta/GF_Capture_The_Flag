@@ -5,6 +5,8 @@ from GameFrame import Globals
 class Bot(RoomObject):
     def __init__(self, room, x, y):
         RoomObject.__init__(self, room, x, y)
+        self.starting_x = x
+        self.starting_y = y
 
     def step(self):
         if self.x <= 0:
@@ -16,3 +18,4 @@ class Bot(RoomObject):
             self.blocked()
         elif self.y >= Globals.SCREEN_HEIGHT - self.height:
             self.blocked()
+
