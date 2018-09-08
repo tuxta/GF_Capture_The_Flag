@@ -11,20 +11,29 @@ class BlueBot(Bot):
         self.rotate(-90)
 
         self.register_collision_object('Red1')
+        self.register_collision_object('BlueFlag')
 
-    def step(self):
-        Bot.step(self)
+    def frame(self):
+        if self.has_flag:
+            Globals.blue_flag.x = self.x
+            Globals.blue_flag.y = self.y
+        self.tick()
+
+    def tick(self):
+        pass
 
     def handle_collision(self, other):
         other_type = type(other).__name__
         if other_type == 'BlueFlag':
-            pass
+            self.has_flag = True
         elif other_type == 'RedFlag':
             pass
         else:
             if self.rect.centerx > Globals.SCREEN_WIDTH / 2 - self.width / 2:
+                self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(-90)
-                self.x = self.starting_y
+                self.x = self.starting_x
                 self.y = random.randint(50, 550)
+
 

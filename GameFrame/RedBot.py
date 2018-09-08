@@ -18,6 +18,10 @@ class RedBot(Bot):
 
     def step(self):
         Bot.step(self)
+        self.tick()
+
+    def tick(self):
+        pass
 
     def handle_collision(self, other):
         other_type = type(other).__name__

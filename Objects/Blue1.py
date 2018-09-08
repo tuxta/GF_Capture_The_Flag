@@ -7,10 +7,12 @@ class Blue1(BlueBot):
     def __init__(self, room, x, y):
         BlueBot.__init__(self, room, x, y)
 
-    def step(self):
-        BlueBot.step(self)
+    def tick(self):
 
-        if self.x <= Globals.SCREEN_WIDTH/2:
+        if self.has_flag:
+            self.rotate_to_coordinate(self.starting_x, self.starting_y)
+            self.move_in_direction(self.curr_rotation, Globals.FAST)
+        elif self.x <= Globals.SCREEN_WIDTH/2:
             distance = self.direct_to_closest_enemy()
             if distance < 100:
                 self.move_in_direction(self.curr_rotation, Globals.FAST)

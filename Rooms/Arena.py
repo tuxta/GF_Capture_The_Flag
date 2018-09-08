@@ -17,8 +17,7 @@ class Arena(Level):
         self.add_room_object(Globals.red_flag)
         self.add_room_object(Globals.blue_flag)
 
-        rbot1 = Red1(self, 550, 100)
-        Globals.red_bots.append(rbot1)
+        Globals.red_bots.append(Red1(self, 550, 100))
         Globals.red_bots.append(Red1(self, 550, 300))
         Globals.red_bots.append(Red1(self, 550, 468))
         Globals.red_bots.append(Red1(self, 700, 274))

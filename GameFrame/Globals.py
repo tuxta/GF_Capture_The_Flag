@@ -39,3 +39,7 @@ class Globals:
     SLOW = 2
     MEDIUM = 5
     FAST = 8
+
+    # Direction
+    LEFT = 0
+    RIGHT = 1
