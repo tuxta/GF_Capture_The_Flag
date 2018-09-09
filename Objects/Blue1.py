@@ -1,5 +1,4 @@
-from GameFrame import BlueBot
-from GameFrame import Globals
+from GameFrame import BlueBot, Globals
 import math
 
 
@@ -21,9 +20,6 @@ class Blue1(BlueBot):
         else:
             self.rotate_to_coordinate(Globals.blue_flag.x, Globals.blue_flag.y)
             self.move_in_direction(self.curr_rotation, Globals.FAST)
-
-    def handle_collision(self, other):
-        BlueBot.handle_collision(self, other)
 
     def direct_to_closest_enemy(self):
         closest_bot = Globals.red_bots[0]

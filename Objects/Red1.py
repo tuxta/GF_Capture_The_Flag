@@ -8,14 +8,13 @@ class Red1(RedBot):
 
     def tick(self):
 
-        if self.x >= Globals.SCREEN_WIDTH/2:
+        if self.has_flag:
+            self.rotate_to_coordinate(self.starting_x, self.starting_y)
+            self.move_in_direction(self.curr_rotation, Globals.FAST)
+        elif self.x >= Globals.SCREEN_WIDTH/2:
             distance = self.direct_to_closest_enemy()
             if distance < 100:
-                if self.x > (Globals.SCREEN_WIDTH / 2 + 200):
-                    self.move_in_direction(self.curr_rotation, Globals.FAST)
-                else:
-                    self.rotate_to_coordinate(Globals.red_flag.x, Globals.red_flag.y)
-                    self.move_in_direction(self.curr_rotation, Globals.FAST)
+                self.move_in_direction(self.curr_rotation, Globals.FAST)
             else:
                 self.move_in_direction(self.curr_rotation, Globals.SLOW)
         else:

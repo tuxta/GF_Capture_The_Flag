@@ -11,13 +11,12 @@ class RedBot(Bot):
         self.rotate(90)
 
         self.register_collision_object('Blue1')
-        self.register_collision_object('Blue2')
-        self.register_collision_object('Blue3')
-        self.register_collision_object('Blue4')
-        self.register_collision_object('Blue5')
+        self.register_collision_object('RedFlag')
 
-    def step(self):
-        Bot.step(self)
+    def frame(self):
+        if self.has_flag:
+            Globals.red_flag.x = self.x
+            Globals.red_flag.y = self.y
         self.tick()
 
     def tick(self):
@@ -28,9 +27,10 @@ class RedBot(Bot):
         if other_type == 'BlueFlag':
             pass
         elif other_type == 'RedFlag':
-            pass
+            self.has_flag = True
         else:
             if self.rect.centerx < Globals.SCREEN_WIDTH / 2 - self.width / 2:
+                self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(90)
                 self.x = self.starting_x
