@@ -16,13 +16,16 @@ class Globals:
     window_name = 'GF Capture the Flag'
 
     # - Set the order of the rooms - #
-    levels = ["Arena"]
+    levels = ["Arena", "EndScreen"]
+
+    # - Winner Text - #
+    winner = ' '
 
     # - Set the starting level - #
     start_level = 0
 
     # - Set this number to the level you want to jump to when the game ends - #
-    end_game_level = 0
+    end_game_level = 1
 
     # - Change variable to True to exit the program - #
     exiting = False
