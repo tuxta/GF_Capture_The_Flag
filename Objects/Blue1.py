@@ -11,7 +11,7 @@ class Blue1(BlueBot):
         if self.has_flag:
             self.rotate_to_coordinate(self.starting_x, self.starting_y)
             self.move_in_direction(self.curr_rotation, Globals.FAST)
-        elif self.x <= Globals.SCREEN_WIDTH/2:
+        elif self.rect.right <= Globals.SCREEN_WIDTH/2:
             distance = self.direct_to_closest_enemy()
             if distance < 100:
                 self.move_in_direction(self.curr_rotation, Globals.FAST)

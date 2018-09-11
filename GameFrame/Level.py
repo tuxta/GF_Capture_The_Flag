@@ -79,14 +79,15 @@ class Level:
                     self.screen.blit(self.background_image, (0, self.background_y - 600))
                 else:
                     self.screen.blit(self.background_image, (0, 0))
-            # Call Update on all objects
-            for item in self.objects:
-                item.update()
-                item.step()
 
             # Check collisions
             for item in self.objects:
                 item.check_collisions()
+
+            # Call Update on all objects
+            for item in self.objects:
+                item.update()
+                item.step()
 
             for item in self.objects:
                 self.screen.blit(item.image, (item.x, item.y))

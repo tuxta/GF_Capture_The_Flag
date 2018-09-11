@@ -15,7 +15,7 @@ class RedBot(Bot):
 
     def frame(self):
         if self.has_flag:
-            Globals.red_flag.x = self.x
+            Globals.red_flag.x = self.x - Globals.red_flag.rect.width - 2
             Globals.red_flag.y = self.y
         self.tick()
 
@@ -29,7 +29,7 @@ class RedBot(Bot):
         elif other_type == 'RedFlag':
             self.has_flag = True
         else:
-            if self.rect.centerx < Globals.SCREEN_WIDTH / 2 - self.width / 2:
+            if self.rect.left < Globals.SCREEN_WIDTH / 2:
                 self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(90)

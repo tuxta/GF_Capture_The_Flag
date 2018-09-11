@@ -15,7 +15,7 @@ class BlueBot(Bot):
 
     def frame(self):
         if self.has_flag:
-            Globals.blue_flag.x = self.x
+            Globals.blue_flag.x = self.x + 21
             Globals.blue_flag.y = self.y
         self.tick()
 
@@ -29,7 +29,7 @@ class BlueBot(Bot):
         elif other_type == 'RedFlag':
             pass
         else:
-            if self.rect.centerx > Globals.SCREEN_WIDTH / 2 - self.width / 2:
+            if self.rect.right > Globals.SCREEN_WIDTH / 2:
                 self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(-90)
