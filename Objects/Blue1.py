@@ -7,19 +7,18 @@ class Blue1(BlueBot):
         BlueBot.__init__(self, room, x, y)
 
     def tick(self):
-
         if self.has_flag:
-            self.rotate_to_coordinate(self.starting_x, self.starting_y)
-            self.move_in_direction(self.curr_rotation, Globals.FAST)
+            self.turn_towards(0, self.y)
+            self.drive_forward(Globals.FAST)
         elif self.rect.right <= Globals.SCREEN_WIDTH/2:
             distance = self.direct_to_closest_enemy()
             if distance < 100:
-                self.move_in_direction(self.curr_rotation, Globals.FAST)
+                self.drive_forward(Globals.FAST)
             else:
-                self.move_in_direction(self.curr_rotation, Globals.SLOW)
+                self.drive_forward(Globals.SLOW)
         else:
-            self.rotate_to_coordinate(Globals.blue_flag.x, Globals.blue_flag.y)
-            self.move_in_direction(self.curr_rotation, Globals.FAST)
+            self.turn_towards(Globals.blue_flag.x, Globals.blue_flag.y, Globals.FAST)
+            self.drive_forward(Globals.FAST)
 
     def direct_to_closest_enemy(self):
         closest_bot = Globals.red_bots[0]
@@ -37,5 +36,5 @@ class Blue1(BlueBot):
                 shortest_distance = curr_bot_dist
                 closest_bot = curr_bot
 
-        self.rotate_to_coordinate(closest_bot.x, closest_bot.y)
+        self.turn_towards(closest_bot.x, closest_bot.y, Globals.FAST)
         return math.sqrt(shortest_distance)

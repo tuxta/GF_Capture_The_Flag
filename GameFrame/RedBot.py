@@ -17,6 +17,24 @@ class RedBot(Bot):
         if self.has_flag:
             Globals.red_flag.x = self.x - Globals.red_flag.rect.width - 2
             Globals.red_flag.y = self.y
+
+            if Globals.red_flag.x <= 0:
+                Globals.red_flag.x = 0
+                self.x = self.prev_x
+                self.y = self.prev_y
+            elif Globals.red_flag.rect.right >= Globals.SCREEN_WIDTH:
+                Globals.red_flag.x = Globals.SCREEN_WIDTH - Globals.red_flag.rect.width
+                self.x = self.prev_x
+                self.y = self.prev_y
+
+            if Globals.red_flag.y <= 0:
+                Globals.red_flag.y = 0
+                self.x = self.prev_x
+                self.y = self.prev_y
+            elif Globals.red_flag.rect.bottom >= Globals.SCREEN_HEIGHT:
+                Globals.red_flag.y = Globals.SCREEN_HEIGHT - Globals.red_flag.rect.height
+                self.x = self.prev_x
+                self.y = self.prev_y
         self.tick()
 
     def tick(self):

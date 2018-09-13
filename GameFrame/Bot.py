@@ -10,6 +10,7 @@ class Bot(RoomObject):
         self.has_flag = False
 
     def step(self):
+        self.frame()
         if self.x <= 0:
             self.blocked()
         elif self.x >= Globals.SCREEN_WIDTH - self.width:
@@ -20,25 +21,57 @@ class Bot(RoomObject):
         elif self.y >= Globals.SCREEN_HEIGHT - self.height:
             self.blocked()
 
-        self.frame()
-
     def frame(self):
         pass
 
     def turn_left(self, speed=Globals.SLOW):
-        pass
+        if speed == Globals.FAST:
+            self.rotate(-9)
+        elif speed == Globals.MEDIUM:
+            self.rotate(-6)
+        else:
+            self.rotate(-3)
 
     def turn_right(self, speed=Globals.SLOW):
-        pass
+        if speed == Globals.FAST:
+            self.rotate(9)
+        elif speed == Globals.MEDIUM:
+            self.rotate(6)
+        else:
+            self.rotate(3)
 
-    def turn_towards(self, x, y, speed=Globals.SLOW, direction=Globals.RIGHT):
-        pass
+    def turn_towards(self, x, y, speed=Globals.SLOW):
+        if self.curr_rotation > 360:
+            self.curr_rotation = self.curr_rotation - 360
+        elif self.curr_rotation < 0:
+            self.curr_rotation = 350 - self.curr_rotation
+            
+        target_angle = self.get_rotation_to_coordinate(x, y)
+        target_angle += 180
+        if target_angle >= 360:
+            target_angle -= 360
 
-    def turn_away(self, x, y, speed, direction=Globals.LEFT):
-        pass
+        if self.curr_rotation <= 180:
+            if self.curr_rotation + 2 < target_angle < self.curr_rotation + 180:
+                self.turn_left(speed)
+            elif self.curr_rotation - 2 < target_angle <= 0 or self.curr_rotation + 180 < target_angle < 360:
+                self.turn_right(speed)
+        else:
+            if self.curr_rotation + 2 < target_angle < 360 or 0 <= target_angle < self.curr_rotation - 180:
+                self.turn_left(speed)
+            elif self.curr_rotation - 2 < target_angle <= self.curr_rotation - 180:
+                self.turn_right(speed)
 
     def drive_forward(self, speed=Globals.SLOW):
-        pass
+        if speed == Globals.FAST:
+            self.move_in_direction(self.curr_rotation, Globals.FAST)
+        elif speed == Globals.MEDIUM:
+            self.move_in_direction(self.curr_rotation, Globals.MEDIUM)
+        else:
+            self.move_in_direction(self.curr_rotation, Globals.SLOW)
 
     def drive_backward(self):
-        pass
+        direction = self.curr_rotation - 180
+        if direction < 0:
+            direction = 360 - direction
+        self.move_in_direction(direction, Globals.SLOW)

@@ -30,3 +30,4 @@ class Arena(Level):
 
         for i in range(len(Globals.blue_bots)):
             self.add_room_object(Globals.blue_bots[i])
+            Globals.blue_bots[i].rotate(180)

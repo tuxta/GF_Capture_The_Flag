@@ -2,6 +2,7 @@ import math
 import os
 import pygame
 
+
 class RoomObject:
 
     def __init__(self, room, x, y):
@@ -23,7 +24,6 @@ class RoomObject:
         self.handle_key_events = False
         self.handle_mouse_events = False
         self.angle = 0
-
 
         self.collision_object_types = set()
         self.collision_objects = []
@@ -116,27 +116,27 @@ class RoomObject:
             self.x_speed = speed
             self.y_speed = 0
         elif angle < 90:
-            self.x_speed, self.y_speed = self._get_direction(angle, speed)
+            self.x_speed, self.y_speed = self.get_direction(angle, speed)
         elif angle == 90:
             self.x_speed = 0
             self.y_speed = speed
         elif angle < 180:
-            self.x_speed, self.y_speed = self._get_direction(angle - 90, speed)
+            self.x_speed, self.y_speed = self.get_direction(angle - 90, speed)
             self.x_speed, self.y_speed = -self.y_speed, self.x_speed
         elif angle == 180:
             self.x_speed = -speed
             self.y_speed = 0
         elif angle < 270:
-            self.x_speed, self.y_speed = self._get_direction(angle - 180, speed)
+            self.x_speed, self.y_speed = self.get_direction(angle - 180, speed)
             self.x_speed, self.y_speed = -self.x_speed, -self.y_speed
         elif angle == 270:
             self.x_speed = 0
             self.y_speed = -speed
         elif angle < 360:
-            self.x_speed, self.y_speed = self._get_direction(angle - 270, speed)
+            self.x_speed, self.y_speed = self.get_direction(angle - 270, speed)
             self.x_speed, self.y_speed = self.y_speed, -self.x_speed
 
-    def _get_direction(self, angle, speed):
+    def get_direction(self, angle, speed):
         # Use Trigonometry to calculate x_speed and y_speed values
         new_x_speed = math.cos(math.radians(angle)) * speed
         new_y_speed = math.sin(math.radians(angle)) * speed
@@ -156,25 +156,25 @@ class RoomObject:
             x = speed
             y = 0
         elif angle < 90:
-            x, y = self._get_direction(angle + 90, speed)
+            x, y = self.get_direction(angle + 90, speed)
             x, y = y, x
         elif angle == 90:
             x = 0
             y = -speed
         elif angle < 180:
-            x, y = self._get_direction(angle, speed)
+            x, y = self.get_direction(angle, speed)
             y *= -1
         elif angle == 180:
             x = -speed
             y = 0
         elif angle < 270:
-            x, y = self._get_direction(angle - 90, speed)
+            x, y = self.get_direction(angle - 90, speed)
             y, x = -x, -y
         elif angle == 270:
             x = 0
             y = speed
         elif angle < 360:
-            x, y = self._get_direction(angle - 180, speed)
+            x, y = self.get_direction(angle - 180, speed)
             y, x = y, -x
 
         return x, y
@@ -200,16 +200,15 @@ class RoomObject:
         self.rect.x = self.x
         self.rect.y = self.y
 
-    def rotate_to_coordinate(self, mouseX, mouseY):
+    def get_rotation_to_coordinate(self, target_x, target_y):
+        distance_x = self.x + (self.width / 2) - target_x
+        distance_y = self.y + (self.height / 2) - target_y
 
-        distance_x = self.x + (self.width / 2) - mouseX
-        distance_y = self.y + (self.height / 2) - mouseY
+        return math.degrees(math.atan2(distance_x, distance_y))
 
-        angle = math.degrees(math.atan2(distance_x, distance_y))
-
+    def rotate_to_coordinate(self, target_x, target_y):
         self.curr_rotation = 0
-
-        self.rotate(angle)
+        self.rotate(self.get_rotation_to_coordinate(target_x, target_y))
 
     def get_position(self):
         return self.x, self.y
