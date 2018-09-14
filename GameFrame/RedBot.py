@@ -15,26 +15,30 @@ class RedBot(Bot):
 
     def frame(self):
         if self.has_flag:
-            Globals.red_flag.x = self.x - Globals.red_flag.rect.width - 2
-            Globals.red_flag.y = self.y
+            if self.x < Globals.SCREEN_WIDTH / 2 + 40:
+                Globals.red_flag.x = self.x - Globals.red_flag.rect.width - 2
+                Globals.red_flag.y = self.y
 
-            if Globals.red_flag.x <= 0:
-                Globals.red_flag.x = 0
-                self.x = self.prev_x
-                self.y = self.prev_y
-            elif Globals.red_flag.rect.right >= Globals.SCREEN_WIDTH:
-                Globals.red_flag.x = Globals.SCREEN_WIDTH - Globals.red_flag.rect.width
-                self.x = self.prev_x
-                self.y = self.prev_y
+                if Globals.red_flag.x <= 0:
+                    Globals.red_flag.x = 0
+                    self.x = self.prev_x
+                    self.y = self.prev_y
+                elif Globals.red_flag.rect.right >= Globals.SCREEN_WIDTH:
+                    Globals.red_flag.x = Globals.SCREEN_WIDTH - Globals.red_flag.rect.width
+                    self.x = self.prev_x
+                    self.y = self.prev_y
 
-            if Globals.red_flag.y <= 0:
-                Globals.red_flag.y = 0
-                self.x = self.prev_x
-                self.y = self.prev_y
-            elif Globals.red_flag.rect.bottom >= Globals.SCREEN_HEIGHT:
-                Globals.red_flag.y = Globals.SCREEN_HEIGHT - Globals.red_flag.rect.height
-                self.x = self.prev_x
-                self.y = self.prev_y
+                if Globals.red_flag.y <= 0:
+                    Globals.red_flag.y = 0
+                    self.x = self.prev_x
+                    self.y = self.prev_y
+                elif Globals.red_flag.rect.bottom >= Globals.SCREEN_HEIGHT:
+                    Globals.red_flag.y = Globals.SCREEN_HEIGHT - Globals.red_flag.rect.height
+                    self.x = self.prev_x
+                    self.y = self.prev_y
+            else:
+                self.has_flag = False
+
         self.tick()
 
     def tick(self):
@@ -42,12 +46,14 @@ class RedBot(Bot):
 
     def handle_collision(self, other):
         other_type = type(other).__name__
-        if other_type == 'BlueFlag':
-            pass
-        elif other_type == 'RedFlag':
+
+        if other_type == 'RedFlag':
             self.has_flag = True
+            for bot in Globals.blue_bots:
+                if bot.has_flag and bot is not self:
+                    bot.has_flag = False
         else:
-            if self.rect.left < Globals.SCREEN_WIDTH / 2:
+            if self.x < Globals.SCREEN_WIDTH / 2:
                 self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(90)
