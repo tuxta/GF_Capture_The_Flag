@@ -45,7 +45,7 @@ class Bot(RoomObject):
         target_angle = int(self.get_rotation_to_coordinate(x, y))
 
         if target_angle < 0:
-            target_angle = 180 - abs(target_angle) + 180
+            target_angle = 360 + target_angle
 
         if self.curr_rotation <= 180:
             if self.curr_rotation + 2 < target_angle < self.curr_rotation + 180:
