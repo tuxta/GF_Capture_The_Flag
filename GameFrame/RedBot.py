@@ -1,5 +1,5 @@
-from GameFrame import Bot, Globals
-import random
+from GameFrame import Bot, Globals, RedFlag
+import GameFrame.BlueBot
 
 
 class RedBot(Bot):
@@ -11,7 +11,16 @@ class RedBot(Bot):
         self.rotate(90)
 
         self.register_collision_object('Blue1')
+        self.register_collision_object('Blue2')
+        self.register_collision_object('Blue3')
+        self.register_collision_object('Blue4')
+        self.register_collision_object('Blue5')
         self.register_collision_object('RedFlag')
+        self.register_collision_object('Red1')
+        self.register_collision_object('Red2')
+        self.register_collision_object('Red3')
+        self.register_collision_object('Red4')
+        self.register_collision_object('Red5')
 
     def frame(self):
         if self.has_flag:
@@ -45,18 +54,19 @@ class RedBot(Bot):
         pass
 
     def handle_collision(self, other):
-        other_type = type(other).__name__
-
-        if other_type == 'RedFlag':
+        if isinstance(other, RedFlag):
             self.has_flag = True
             for bot in Globals.blue_bots:
                 if bot.has_flag and bot is not self:
                     bot.has_flag = False
-        else:
+        elif isinstance(other, GameFrame.BlueBot):
             if self.x < Globals.SCREEN_WIDTH / 2:
                 self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(90)
-                self.x = self.starting_x
-                self.y = random.randint(50, 550)
-
+                self.x = Globals.SCREEN_WIDTH - 36
+                self.y = 20
+                self.jailed = True
+        elif isinstance(other, RedBot):
+            if not other.jailed:
+                self.jailed = False

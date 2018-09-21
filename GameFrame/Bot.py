@@ -8,18 +8,20 @@ class Bot(RoomObject):
         self.starting_x = x
         self.starting_y = y
         self.has_flag = False
+        self.jailed = False
 
     def step(self):
-        self.frame()
-        if self.x <= 0:
-            self.blocked()
-        elif self.x >= Globals.SCREEN_WIDTH - self.width:
-            self.blocked()
+        if not self.jailed:
+            self.frame()
+            if self.x <= 0:
+                self.blocked()
+            elif self.x >= Globals.SCREEN_WIDTH - self.width:
+                self.blocked()
 
-        if self.y <= 0:
-            self.blocked()
-        elif self.y >= Globals.SCREEN_HEIGHT - self.height:
-            self.blocked()
+            if self.y <= 0:
+                self.blocked()
+            elif self.y >= Globals.SCREEN_HEIGHT - self.height:
+                self.blocked()
 
     def frame(self):
         pass
