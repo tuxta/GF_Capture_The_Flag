@@ -1,6 +1,7 @@
 import math
 import os
 import pygame
+import math
 
 
 class RoomObject:
@@ -217,3 +218,9 @@ class RoomObject:
         x, y = self.get_direction_coordinates(angle, distance)
         self.x += x
         self.y += y
+
+    def point_to_point_distance(self, x1, y1, x2, y2):
+        x_dist = abs(x1 - x2)
+        y_dist = abs(y1 - y2)
+        return math.sqrt(x_dist * x_dist + y_dist * y_dist)
+
