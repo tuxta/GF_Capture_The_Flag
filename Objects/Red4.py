@@ -58,7 +58,7 @@ class Red4(RedBot):
         if not bot_jailed:
             self.curr_state = STATE.RETURN_HOME
         else:
-            self.turn_towards(Globals.SCREEN_WIDTH - 36, 20, Globals.FAST)
+            self.turn_towards(Globals.SCREEN_WIDTH - 36, Globals.SCREEN_HEIGHT - 40, Globals.FAST)
             self.drive_forward(Globals.FAST)
 
     def return_home(self):

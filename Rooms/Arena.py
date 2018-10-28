@@ -21,11 +21,11 @@ class Arena(Level):
         Globals.red_bots.append(Red4(self, 660, 234))
         Globals.red_bots.append(Red5(self, 660, 314))
 
-        Globals.blue_bots.append(Blue1(self, 228, 100))
-        Globals.blue_bots.append(Blue2(self, 228, 300))
-        Globals.blue_bots.append(Blue3(self, 228, 468))
-        Globals.blue_bots.append(Blue4(self, 108, 234))
-        Globals.blue_bots.append(Blue5(self, 108, 314))
+        Globals.blue_bots.append(Blue1(self, 108, 234))
+        Globals.blue_bots.append(Blue2(self, 108, 314))
+        Globals.blue_bots.append(Blue3(self, 228, 100))
+        Globals.blue_bots.append(Blue4(self, 228, 300))
+        Globals.blue_bots.append(Blue5(self, 228, 468))
 
         for i in range(len(Globals.red_bots)):
             self.add_room_object(Globals.red_bots[i])

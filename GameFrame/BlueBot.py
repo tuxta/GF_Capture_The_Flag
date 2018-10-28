@@ -60,7 +60,7 @@ class BlueBot(Bot):
                 if bot.has_flag and bot is not self:
                     bot.has_flag = False
         elif isinstance(other, GameFrame.RedBot):
-            if self.rect.right > Globals.SCREEN_WIDTH / 2:
+            if self.rect.right > Globals.SCREEN_WIDTH / 2 and not other.jailed:
                 self.has_flag = False
                 self.curr_rotation = 0
                 self.rotate(-90)

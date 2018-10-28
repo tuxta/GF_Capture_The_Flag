@@ -1,40 +1,62 @@
 from GameFrame import BlueBot, Globals
-import math
+from enum import Enum
+
+
+class STATE(Enum):
+    WAIT = 1
+    ATTACK = 2
+    RETURN_HOME = 3
 
 
 class Blue2(BlueBot):
     def __init__(self, room, x, y):
         BlueBot.__init__(self, room, x, y)
 
-    def tick(self):
-        if self.has_flag:
-            self.turn_towards(0, self.y)
-            self.drive_forward(Globals.FAST)
-        elif self.rect.right <= Globals.SCREEN_WIDTH/2:
-            distance = self.direct_to_closest_enemy()
-            if distance < 100:
-                self.drive_forward(Globals.FAST)
-            else:
-                self.drive_forward(Globals.SLOW)
-        else:
-            self.turn_towards(Globals.blue_flag.x, Globals.blue_flag.y, Globals.FAST)
-            self.drive_forward(Globals.FAST)
+        self.curr_state = STATE.WAIT
 
-    def direct_to_closest_enemy(self):
+    def tick(self):
+
+        if self.curr_state == STATE.WAIT:
+            self.wait()
+        elif self.curr_state == STATE.ATTACK:
+            self.attack()
+        elif self.curr_state == STATE.RETURN_HOME:
+            self.return_home()
+        else:
+            self.curr_state = STATE.RETURN_HOME
+
+    def wait(self):
+        bot, distance = self.closest_enemy_to_flag()
+        if distance < 250:
+            self.curr_state = STATE.ATTACK
+            self.attack()
+
+    def attack(self):
+        bot, distance = self.closest_enemy_to_flag()
+        if distance < 250:
+            self.turn_towards(bot.x, bot.y, Globals.FAST)
+            self.drive_forward(Globals.FAST)
+        else:
+            self.curr_state = STATE.RETURN_HOME
+
+    def return_home(self):
+        self.turn_towards(self.starting_x, self.starting_y, Globals.FAST)
+        self.drive_forward(Globals.FAST)
+        if abs(self.x - self.starting_x) < 20 and abs(self.y - self.starting_y) < 20:
+            self.curr_state = STATE.WAIT
+        bot, distance = self.closest_enemy_to_flag()
+        if distance < 250:
+            self.curr_state = STATE.ATTACK
+
+    def closest_enemy_to_flag(self):
         closest_bot = Globals.red_bots[0]
-        x_dist = abs(closest_bot.x - self.x)
-        y_dist = abs(closest_bot.y - self.y)
-        shortest_distance = x_dist*x_dist + y_dist*y_dist
+        shortest_distance = self.point_to_point_distance(closest_bot.x, closest_bot.y,
+                                                         Globals.red_flag.x, Globals.red_flag.y)
         for curr_bot in Globals.red_bots:
-            x_dist = abs(curr_bot.x - self.x)
-            y_dist = abs(curr_bot.y - self.y)
-            if x_dist == 0 or y_dist == 0:
-                curr_bot_dist = x_dist*x_dist + y_dist*y_dist
-            else:
-                curr_bot_dist = x_dist*x_dist + y_dist*y_dist
+            curr_bot_dist = self.point_to_point_distance(curr_bot.x, curr_bot.y,
+                                                         Globals.red_flag.x, Globals.red_flag.y)
             if curr_bot_dist < shortest_distance:
                 shortest_distance = curr_bot_dist
                 closest_bot = curr_bot
 
-        self.turn_towards(closest_bot.x, closest_bot.y, Globals.FAST)
-        return math.sqrt(shortest_distance)
+        return closest_bot, shortest_distance
