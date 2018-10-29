@@ -5,7 +5,6 @@ from enum import Enum
 class STATE(Enum):
     WAIT = 1
     ATTACK = 2
-    RETURN_HOME = 3
 
 
 class Red5(RedBot):
@@ -20,10 +19,8 @@ class Red5(RedBot):
             self.wait()
         elif self.curr_state == STATE.ATTACK:
             self.attack()
-        elif self.curr_state == STATE.RETURN_HOME:
-            self.return_home()
         else:
-            self.curr_state = STATE.RETURN_HOME
+            self.curr_state = STATE.WAIT
 
     def wait(self):
         bot, distance = self.closest_enemy_to_flag()
@@ -36,7 +33,7 @@ class Red5(RedBot):
             self.turn_towards(bot.x, bot.y, Globals.FAST)
             self.drive_forward(Globals.FAST)
         else:
-            self.curr_state = STATE.RETURN_HOME
+            self.curr_state = STATE.WAIT
 
     def return_home(self):
         self.turn_towards(self.starting_x, self.starting_y, Globals.FAST)

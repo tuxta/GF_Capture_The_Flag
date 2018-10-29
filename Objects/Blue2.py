@@ -5,7 +5,6 @@ from enum import Enum
 class STATE(Enum):
     WAIT = 1
     ATTACK = 2
-    RETURN_HOME = 3
 
 
 class Blue2(BlueBot):
@@ -20,10 +19,8 @@ class Blue2(BlueBot):
             self.wait()
         elif self.curr_state == STATE.ATTACK:
             self.attack()
-        elif self.curr_state == STATE.RETURN_HOME:
-            self.return_home()
         else:
-            self.curr_state = STATE.RETURN_HOME
+            self.curr_state = STATE.WAIT
 
     def wait(self):
         bot, distance = self.closest_enemy_to_flag()
@@ -37,16 +34,7 @@ class Blue2(BlueBot):
             self.turn_towards(bot.x, bot.y, Globals.FAST)
             self.drive_forward(Globals.FAST)
         else:
-            self.curr_state = STATE.RETURN_HOME
-
-    def return_home(self):
-        self.turn_towards(self.starting_x, self.starting_y, Globals.FAST)
-        self.drive_forward(Globals.FAST)
-        if abs(self.x - self.starting_x) < 20 and abs(self.y - self.starting_y) < 20:
             self.curr_state = STATE.WAIT
-        bot, distance = self.closest_enemy_to_flag()
-        if distance < 250:
-            self.curr_state = STATE.ATTACK
 
     def closest_enemy_to_flag(self):
         closest_bot = Globals.red_bots[0]

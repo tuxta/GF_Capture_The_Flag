@@ -6,7 +6,6 @@ class STATE(Enum):
     WAIT = 1
     ATTACK = 2
     JAIL_BREAK = 3
-    RETURN_HOME = 4
 
 
 class Red4(RedBot):
@@ -23,8 +22,6 @@ class Red4(RedBot):
             self.attack()
         elif self.curr_state == STATE.JAIL_BREAK:
             self.jailbreak()
-        elif self.curr_state == STATE.RETURN_HOME:
-            self.return_home()
         else:
             self.curr_state = STATE.RETURN_HOME
 
@@ -47,7 +44,7 @@ class Red4(RedBot):
             self.turn_towards(bot.x, bot.y, Globals.FAST)
             self.drive_forward(Globals.FAST)
         else:
-            self.curr_state = STATE.RETURN_HOME
+            self.curr_state = STATE.WAIT
 
     def jailbreak(self):
         bot_jailed = False
@@ -56,19 +53,10 @@ class Red4(RedBot):
                 bot_jailed = True
                 break
         if not bot_jailed:
-            self.curr_state = STATE.RETURN_HOME
+            self.curr_state = STATE.WAIT
         else:
             self.turn_towards(Globals.SCREEN_WIDTH - 36, Globals.SCREEN_HEIGHT - 40, Globals.FAST)
             self.drive_forward(Globals.FAST)
-
-    def return_home(self):
-        self.turn_towards(self.starting_x, self.starting_y, Globals.FAST)
-        self.drive_forward(Globals.FAST)
-        if abs(self.x - self.starting_x) < 20 and abs(self.y - self.starting_y) < 20:
-            self.curr_state = STATE.WAIT
-        bot, distance = self.closest_enemy_to_flag()
-        if distance < 250:
-            self.curr_state = STATE.ATTACK
 
     def closest_enemy_to_flag(self):
         closest_bot = Globals.blue_bots[0]

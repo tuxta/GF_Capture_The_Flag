@@ -27,7 +27,9 @@ class Bot(RoomObject):
         pass
 
     def turn_left(self, speed=Globals.SLOW):
-        if speed == Globals.FAST:
+        if self.has_flag:
+            self.rotate(40)
+        elif speed == Globals.FAST:
             self.rotate(9)
         elif speed == Globals.MEDIUM:
             self.rotate(6)
@@ -35,7 +37,9 @@ class Bot(RoomObject):
             self.rotate(3)
 
     def turn_right(self, speed=Globals.SLOW):
-        if speed == Globals.FAST:
+        if self.has_flag:
+            self.rotate(-40)
+        elif speed == Globals.FAST:
             self.rotate(-9)
         elif speed == Globals.MEDIUM:
             self.rotate(-6)
