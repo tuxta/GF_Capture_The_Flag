@@ -35,15 +35,6 @@ class Red5(RedBot):
         else:
             self.curr_state = STATE.WAIT
 
-    def return_home(self):
-        self.turn_towards(self.starting_x, self.starting_y, Globals.FAST)
-        self.drive_forward(Globals.FAST)
-        if abs(self.x - self.starting_x) < 20 and abs(self.y - self.starting_y) < 20:
-            self.curr_state = STATE.WAIT
-        bot, distance = self.closest_enemy_to_flag()
-        if distance < 250:
-            self.curr_state = STATE.ATTACK
-
     def closest_enemy_to_flag(self):
         closest_bot = Globals.blue_bots[0]
         shortest_distance = self.point_to_point_distance(closest_bot.x, closest_bot.y,

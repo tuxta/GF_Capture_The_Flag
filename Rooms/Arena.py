@@ -15,17 +15,16 @@ class Arena(Level):
         self.add_room_object(Globals.red_flag)
         self.add_room_object(Globals.blue_flag)
 
-        Globals.red_bots.append(Red1(self, 550, 100))
-        Globals.red_bots.append(Red2(self, 550, 300))
-        Globals.red_bots.append(Red3(self, 550, 468))
-        Globals.red_bots.append(Red4(self, 660, 234))
-        Globals.red_bots.append(Red5(self, 660, 314))
-
-        Globals.blue_bots.append(Blue1(self, 108, 234))
-        Globals.blue_bots.append(Blue2(self, 108, 314))
-        Globals.blue_bots.append(Blue3(self, 228, 100))
-        Globals.blue_bots.append(Blue4(self, 228, 300))
-        Globals.blue_bots.append(Blue5(self, 228, 468))
+        Globals.red_bots.append(Red1(self, 550, 92))
+        Globals.blue_bots.append(Blue1(self, 108, 192))
+        Globals.red_bots.append(Red2(self, 550, 282))
+        Globals.blue_bots.append(Blue2(self, 108, 392))
+        Globals.red_bots.append(Red3(self, 550, 492))
+        Globals.blue_bots.append(Blue3(self, 228, 92))
+        Globals.red_bots.append(Red4(self, 660, 192))
+        Globals.blue_bots.append(Blue4(self, 228, 282))
+        Globals.red_bots.append(Red5(self, 660, 392))
+        Globals.blue_bots.append(Blue5(self, 228, 492))
 
         for i in range(len(Globals.red_bots)):
             self.add_room_object(Globals.red_bots[i])

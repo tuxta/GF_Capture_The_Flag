@@ -1,5 +1,4 @@
 from GameFrame import RedBot, Globals
-import math
 import random
 
 
