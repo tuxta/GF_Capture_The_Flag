@@ -5,6 +5,7 @@ from enum import Enum
 class STATE(Enum):
     WAIT = 1
     ATTACK = 2
+    JAIL_BREAK = 3
 
 
 class Red5(RedBot):
@@ -19,13 +20,23 @@ class Red5(RedBot):
             self.wait()
         elif self.curr_state == STATE.ATTACK:
             self.attack()
+        elif self.curr_state == STATE.JAIL_BREAK:
+            self.jailbreak()
         else:
-            self.curr_state = STATE.WAIT
+            self.curr_state = STATE.RETURN_HOME
 
     def wait(self):
         bot, distance = self.closest_enemy_to_flag()
         if distance < 250:
             self.curr_state = STATE.ATTACK
+        else:
+            bot_jailed = False
+            for team_bot in Globals.red_bots:
+                if team_bot.jailed:
+                    bot_jailed = True
+                    break
+            if bot_jailed:
+                self.curr_state = STATE.JAIL_BREAK
 
     def attack(self):
         bot, distance = self.closest_enemy_to_flag()
@@ -34,6 +45,18 @@ class Red5(RedBot):
             self.drive_forward(Globals.FAST)
         else:
             self.curr_state = STATE.WAIT
+
+    def jailbreak(self):
+        bot_jailed = False
+        for team_bot in Globals.red_bots:
+            if team_bot.jailed:
+                bot_jailed = True
+                break
+        if not bot_jailed:
+            self.curr_state = STATE.WAIT
+        else:
+            self.turn_towards(Globals.SCREEN_WIDTH - 36, Globals.SCREEN_HEIGHT - 40, Globals.FAST)
+            self.drive_forward(Globals.FAST)
 
     def closest_enemy_to_flag(self):
         closest_bot = Globals.blue_bots[0]
