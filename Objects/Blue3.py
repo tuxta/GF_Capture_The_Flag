@@ -16,7 +16,7 @@ class Blue3(BlueBot):
                 self.turn_towards(0, self.y)
                 self.drive_forward(Globals.FAST)
             elif self.rect.right <= Globals.SCREEN_WIDTH/2:
-                self.turn_towards(self.starting_x + 150, self.starting_y, Globals.FAST)
+                self.turn_towards(self.starting_x + 400, self.starting_y, Globals.FAST)
                 self.drive_forward(Globals.FAST)
             else:
                 self.turn_towards(Globals.blue_flag.x, Globals.blue_flag.y, Globals.FAST)

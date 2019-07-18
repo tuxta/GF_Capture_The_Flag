@@ -48,7 +48,16 @@ class RedBot(Bot):
             else:
                 self.has_flag = False
 
-        self.tick()
+        if self.x < Globals.SCREEN_WIDTH / 2:
+            Globals.red_enemy_side_time += 1
+            if self.has_flag:
+                Globals.red_enemy_side_time += 10
+            
+
+        try:
+            self.tick()
+        except Exception:
+            print("Red Exception occured\n")
 
     def tick(self):
         pass

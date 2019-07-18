@@ -48,7 +48,15 @@ class BlueBot(Bot):
             else:
                 self.has_flag = False
 
-        self.tick()
+        if self.x > Globals.SCREEN_WIDTH / 2:
+            Globals.blue_enemy_side_time += 1
+            if self.has_flag:
+                Globals.blue_enemy_side_time += 10
+
+        try:
+            self.tick()
+        except Exception:
+            print("Blue Exception occured\n")
 
     def tick(self):
         pass

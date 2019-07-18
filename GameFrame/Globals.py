@@ -4,8 +4,8 @@ class Globals:
     running = True
     FRAMES_PER_SECOND = 30
 
-    SCREEN_WIDTH = 800
-    SCREEN_HEIGHT = 600
+    SCREEN_WIDTH = 1280
+    SCREEN_HEIGHT = 720
 
     SCORE = 0
 
@@ -17,6 +17,12 @@ class Globals:
 
     # - Set the order of the rooms - #
     levels = ["Arena", "EndScreen"]
+
+    red_player = 'Red'
+
+    blue_player = 'Blue'
+
+    background_music = 0
 
     # - Winner Text - #
     winner = ' '
@@ -46,3 +52,8 @@ class Globals:
     # Direction
     LEFT = 0
     RIGHT = 1
+
+    # Time in opposition half
+    red_enemy_side_time = 0
+    blue_enemy_side_time = 0
+
