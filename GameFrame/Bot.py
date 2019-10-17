@@ -75,5 +75,5 @@ class Bot(RoomObject):
     def drive_backward(self):
         direction = self.curr_rotation - 180
         if direction < 0:
-            direction = 360 - direction
+            direction = 360 + direction
         self.move_in_direction(direction, Globals.SLOW)
