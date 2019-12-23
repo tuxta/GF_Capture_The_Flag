@@ -67,7 +67,7 @@ class RedBot(Bot):
         try:
             self.tick()
         except Exception:
-            print("Red Exception occured\n")
+            print("Red Exception occurred\n")
 
     def tick(self):
         pass

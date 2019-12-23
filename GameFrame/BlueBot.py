@@ -64,7 +64,7 @@ class BlueBot(Bot):
         try:
             self.tick()
         except Exception:
-            print("Blue Exception occured\n")
+            print("Blue Exception occurred\n")
 
     def tick(self):
         pass
