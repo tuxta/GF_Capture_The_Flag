@@ -53,22 +53,27 @@ class Arena(Level):
         self.red_score_text.x = Globals.SCREEN_WIDTH / 3 * 2 - self.counter_text.width / 2
 
         self.set_timer(3600, self.timed_out)
+        self.update_screen_text()
 
     def tick(self):
         self.counter -= 1
-        if self.counter % 30 == 0:
-            self.seconds -= 1
-            text_minutes = int(self.seconds / 60)
-            text_seconds = self.seconds % 60
-            self.counter_text.text = "{}:{:02d}".format(text_minutes, text_seconds)
-            self.counter_text.update_text()
-            self.counter_text.x = Globals.SCREEN_WIDTH / 2 - self.counter_text.width / 2
 
-            self.blue_score_text.text = str(Globals.blue_enemy_side_time)
-            self.blue_score_text.update_text()
+    def update_screen_text(self):
+        self.seconds -= 1
+        text_minutes = int(self.seconds / 60)
+        text_seconds = self.seconds % 60
+        self.counter_text.text = "{}:{:02d}".format(text_minutes, text_seconds)
+        self.counter_text.update_text()
+        self.counter_text.x = Globals.SCREEN_WIDTH / 2 - self.counter_text.width / 2
 
-            self.red_score_text.text = str(Globals.red_enemy_side_time)
-            self.red_score_text.update_text()
+        self.blue_score_text.text = str(Globals.blue_enemy_side_time)
+        self.blue_score_text.update_text()
+
+        self.red_score_text.text = str(Globals.red_enemy_side_time)
+        self.red_score_text.update_text()
+
+        if self.counter > 0:
+            self.set_timer(30, self.update_screen_text)
 
     def timed_out(self):
         if Globals.red_enemy_side_time > Globals.blue_enemy_side_time:
