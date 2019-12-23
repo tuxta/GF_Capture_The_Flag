@@ -52,7 +52,17 @@ class RedBot(Bot):
             Globals.red_enemy_side_time += 1
             if self.has_flag:
                 Globals.red_enemy_side_time += 10
-            
+
+            Globals.red_enemy_side_time += 1
+            distance = self.point_to_point_distance(self.x, self.y, Globals.red_flag.x, Globals.red_flag.y)
+            if self.has_flag:
+                Globals.red_enemy_side_time += 50
+            elif distance < 50:
+                Globals.red_enemy_side_time += 30
+            elif distance < 150:
+                Globals.red_enemy_side_time += 20
+            elif distance < 250:
+                Globals.red_enemy_side_time += 10
 
         try:
             self.tick()

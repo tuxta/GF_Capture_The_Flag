@@ -50,8 +50,16 @@ class BlueBot(Bot):
 
         if self.x > Globals.SCREEN_WIDTH / 2:
             Globals.blue_enemy_side_time += 1
+            distance = self.point_to_point_distance(self.x, self.y, Globals.blue_flag.x, Globals.blue_flag.y)
             if self.has_flag:
+                Globals.blue_enemy_side_time += 50
+            elif distance < 50:
+                Globals.blue_enemy_side_time += 30
+            elif distance < 150:
+                Globals.blue_enemy_side_time += 20
+            elif distance < 250:
                 Globals.blue_enemy_side_time += 10
+
 
         try:
             self.tick()
