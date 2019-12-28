@@ -73,7 +73,8 @@ class RedBot(Bot):
             self.has_flag = True
             for bot in Globals.blue_bots:
                 if bot.has_flag and bot is not self:
-                    bot.has_flag = False
+                    self.has_flag = False
+                    break
         elif isinstance(other, GameFrame.BlueBot):
             if self.x < Globals.SCREEN_WIDTH / 2 and not other.jailed:
                 self.has_flag = False
