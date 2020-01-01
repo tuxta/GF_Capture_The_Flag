@@ -33,7 +33,7 @@ class BlueBot(Bot):
 
                 if Globals.blue_flag.y <= 0:
                     Globals.blue_flag.y = 2
-                elif self.y + Globals.blue_flag.rect.heigh >= Globals.SCREEN_HEIGHT:
+                elif self.y + Globals.blue_flag.rect.height >= Globals.SCREEN_HEIGHT:
                     Globals.blue_flag.y = Globals.SCREEN_HEIGHT - Globals.blue_flag.rect.height
             else:
                 self.has_flag = False
