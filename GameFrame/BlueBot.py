@@ -24,27 +24,17 @@ class BlueBot(Bot):
 
     def frame(self):
         if self.has_flag:
-            if self.x > Globals.SCREEN_WIDTH/2 - 40:
+            if self.x > Globals.SCREEN_WIDTH/2 - Globals.SCREEN_WIDTH / 4:
                 Globals.blue_flag.x = self.x + self.rect.width + 2
                 Globals.blue_flag.y = self.y
 
-                if Globals.blue_flag.x <= 0:
-                    Globals.blue_flag.x = 0
-                    self.x = self.prev_x
-                    self.y = self.prev_y
-                elif Globals.blue_flag.x >= Globals.SCREEN_WIDTH - 34:
+                if Globals.blue_flag.x >= Globals.SCREEN_WIDTH - 34:
                     Globals.blue_flag.x = Globals.SCREEN_WIDTH - 34
-                    self.x = self.prev_x
-                    self.y = self.prev_y
 
                 if Globals.blue_flag.y <= 0:
                     Globals.blue_flag.y = 2
-                    self.x = self.prev_x
-                    self.y = self.prev_y
-                elif Globals.blue_flag.rect.bottom >= Globals.SCREEN_HEIGHT:
+                elif self.y + Globals.blue_flag.rect.heigh >= Globals.SCREEN_HEIGHT:
                     Globals.blue_flag.y = Globals.SCREEN_HEIGHT - Globals.blue_flag.rect.height
-                    self.x = self.prev_x
-                    self.y = self.prev_y
             else:
                 self.has_flag = False
 
