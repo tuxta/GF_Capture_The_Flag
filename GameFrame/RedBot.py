@@ -61,7 +61,7 @@ class RedBot(Bot):
     def handle_collision(self, other):
         if isinstance(other, RedFlag):
             self.has_flag = True
-            for bot in Globals.blue_bots:
+            for bot in Globals.red_bots:
                 if bot.has_flag and bot is not self:
                     self.has_flag = False
                     break
