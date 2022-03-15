@@ -27,6 +27,11 @@ class Bot(RoomObject):
         pass
 
     def turn_left(self, speed=Globals.SLOW):
+        '''
+        Turns the bot to the left\n
+        Takes 1 argument: speed(optional)\n
+        The speed can be Globals.SLOW, Globals.MEDIUM, and Globals.FAST, defaults to Globals.SLOW
+        '''
         if self.has_flag:
             self.rotate(40)
         elif speed == Globals.FAST:
@@ -37,6 +42,11 @@ class Bot(RoomObject):
             self.rotate(3)
 
     def turn_right(self, speed=Globals.SLOW):
+        '''
+        Turns the bot to the right\n
+        Takes 1 argument: speed(optional)\n
+        The speed can be Globals.SLOW, Globals.MEDIUM, and Globals.FAST, defaults to Globals.SLOW
+        '''
         if self.has_flag:
             self.rotate(-40)
         elif speed == Globals.FAST:
@@ -47,7 +57,11 @@ class Bot(RoomObject):
             self.rotate(-3)
 
     def turn_towards(self, x, y, speed=Globals.SLOW):
-
+        '''
+        Turns towards the given coordinates\n
+        Takes 3 arguments: x, y, speed(optional)\n
+        The speed can be Globals.SLOW, Globals.MEDIUM, and Globals.FAST, defaults to Globals.SLOW
+        '''
         target_angle = int(self.get_rotation_to_coordinate(x, y))
 
         if target_angle < 0:
@@ -65,6 +79,11 @@ class Bot(RoomObject):
                 self.turn_right(speed)
 
     def drive_forward(self, speed=Globals.SLOW):
+        '''
+        Moves the bot in the direction that it is facting\n
+        Takes 1 argument, speed(optional)\n
+        The speed can be Globals.SLOW, Globals.MEDIUM, and Globals.FAST, defaults to Globals.SLOW
+        '''
         if speed == Globals.FAST:
             self.move_in_direction(self.curr_rotation, Globals.FAST)
         elif speed == Globals.MEDIUM:
@@ -73,6 +92,10 @@ class Bot(RoomObject):
             self.move_in_direction(self.curr_rotation, Globals.SLOW)
 
     def drive_backward(self):
+        '''
+        Moves the bot backward\n
+        Takes no arguments
+        '''
         direction = self.curr_rotation - 180
         if direction < 0:
             direction = 360 + direction
