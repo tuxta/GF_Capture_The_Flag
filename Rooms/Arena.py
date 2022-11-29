@@ -26,7 +26,6 @@ class Arena(Level):
 
         for i in range(len(Globals.blue_bots)):
             self.add_room_object(Globals.blue_bots[i])
-            Globals.blue_bots[i].rotate(180)
 
         Globals.red_flag = RedFlag(self, 200, Globals.SCREEN_HEIGHT / 2 - 26)
         Globals.blue_flag = BlueFlag(self, Globals.SCREEN_WIDTH - 232, Globals.SCREEN_HEIGHT / 2 - 26)
