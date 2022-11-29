@@ -213,10 +213,7 @@ class RoomObject:
 
     def rotate(self, angle):
 
-        if self.curr_rotation > 360:
-            self.curr_rotation = self.curr_rotation - 360
-        elif self.curr_rotation < 0:
-            self.curr_rotation = 350 - self.curr_rotation
+        self.curr_rotation%=360
 
         self.curr_rotation = self.angle = angle + self.curr_rotation
 
